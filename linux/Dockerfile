@@ -13,6 +13,7 @@ RUN apt-get update
 #Install Clang dependencies
 RUN apt-get install -y zip clang-$LLVM_VER lldb-$LLVM_VER lld-$LLVM_VER clangd-$LLVM_VER liblld-$LLVM_VER-dev llvm-$LLVM_VER-dev
 
+RUN rustup toolchain install nightly && rustup default $RUST_VER
 RUN rustup component add rustfmt clippy llvm-tools-preview 
 
 RUN cargo install mdbook grcov
