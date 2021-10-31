@@ -16,16 +16,17 @@ jobs:
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     runs-on: ${{ matrix.config.os }}
-    matrix:
-      config:
-        - {
-          os: "ubuntu-latest",
-          version: "linux"
-        }
-        - {
-          os: "windows-latest",
-          version: "win"
-        }
+    strategy:
+      matrix:
+        config:
+          - {
+            os: "ubuntu-latest",
+            version: "linux"
+          }
+          - {
+            os: "windows-latest",
+            version: "win"
+          }
     permissions:
       packages: write
       contents: read
