@@ -5,6 +5,11 @@ ARG RUST_VER=1.56.0
 # Fixed rust version to 12
 ARG LLVM_VER=12
 
+ENV RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH \
+    RUST_VERSION=$RUST_VER
+
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -25,8 +30,11 @@ RUN apt-get install -y zip clang-$LLVM_VER lldb-$LLVM_VER lld-$LLVM_VER clangd-$
 
 #Install rust stable and nightly
 ADD https://sh.rustup.rs /temp/rustup-init.sh
-RUN chmod +x /temp/rustup-init.sh && /temp/rustup-init.sh --default-toolchain $RUST_VER -y
-ENV PATH=/root/.cargo/bin:$PATH
+RUN chmod +x /temp/rustup-init.sh \
+		&& /temp/rustup-init.sh \
+			--default-toolchain $RUST_VERSION \
+			-y --no-modify-path
+
 RUN rustup toolchain install nightly \
 		&& rustup component add llvm-tools-preview  \
 		&& rustup component add --toolchain nightly llvm-tools-preview  \
