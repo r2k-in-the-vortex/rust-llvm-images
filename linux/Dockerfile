@@ -39,7 +39,8 @@ RUN rustup toolchain install nightly \
 		&& rustup component add llvm-tools-preview  \
 		&& rustup component add --toolchain nightly llvm-tools-preview  \
 	 	#Install documentation and coverage tools \
-		&& cargo install mdbook grcov
+		&& cargo install mdbook 
+		&& cargo install --frozen grcov
 
 
 WORKDIR /build
