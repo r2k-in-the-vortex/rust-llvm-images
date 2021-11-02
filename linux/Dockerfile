@@ -40,7 +40,7 @@ RUN rustup toolchain install nightly \
 		&& rustup component add --toolchain nightly llvm-tools-preview  \
 	 	#Install documentation and coverage tools \
 		&& cargo install mdbook \
-		&& cargo install --frozen grcov
+		&& cargo install --locked grcov
 
 
 WORKDIR /build
