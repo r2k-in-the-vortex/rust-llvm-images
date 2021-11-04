@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 ARG LLVM_VER=12.0.1
-ARG RUST_VER=1.56.0
+ARG RUST_VER=1.56.1
 
 # Install VC++
 

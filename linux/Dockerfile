@@ -1,4 +1,4 @@
-FROM rust:1.56-bullseye
+FROM rust:1.56.1-bullseye
 
 # Fixed rust version to 12
 ARG LLVM_VER=12
