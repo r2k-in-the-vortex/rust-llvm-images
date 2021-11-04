@@ -21,7 +21,7 @@ RUN apt-get update
 RUN apt-get install -y zip clang-$LLVM_VER lldb-$LLVM_VER lld-$LLVM_VER clangd-$LLVM_VER liblld-$LLVM_VER-dev llvm-$LLVM_VER-dev
 
 RUN rustup toolchain install nightly \
-		&& rustup component add llvm-tools-preview  \
+		&& rustup component add clippy rustfmt llvm-tools-preview  \
 		&& rustup component add --toolchain nightly llvm-tools-preview  \
 	 	#Install documentation and coverage tools \
 		&& cargo install mdbook grcov
