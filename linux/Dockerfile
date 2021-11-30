@@ -1,5 +1,7 @@
 FROM rust:1.56.1-bullseye
 
+# Fixed rust version to 1.56
+ARG RUST_VER=1.56.1
 # Fixed rust version to 12
 ARG LLVM_VER=12
 
@@ -25,7 +27,6 @@ RUN rustup toolchain install nightly \
 		&& rustup component add --toolchain nightly llvm-tools-preview  \
 	 	#Install documentation and coverage tools \
 		&& cargo install mdbook grcov
-
 
 WORKDIR /build
 ENTRYPOINT ["bash"]
