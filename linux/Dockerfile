@@ -1,9 +1,9 @@
-FROM rust:1.56.1-bullseye
+FROM rust:1.59-bullseye
 
 # Fixed rust version to 1.56
-ARG RUST_VER=1.56.1
+ARG RUST_VER=1.59
 # Fixed rust version to 12
-ARG LLVM_VER=12
+ARG LLVM_VER=13
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
