@@ -6,7 +6,7 @@ FROM $BASE_IMAGE
 # Make sure we are on root
 USER root
 
-ARG RUST_VERSION=1.60
+ARG RUST_VERSION=1.60.0
 ARG LLVM_VER=13
 # Use the bullseye llvm version because there is no newer one yet
 ARG LLVM_DEBIAN_VERSION=bullseye 
@@ -17,6 +17,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN dpkg --add-architecture arm64 \
 		&& apt-get update \
 		&& apt-get install \
+			app-utils	\
 			wget gnupg curl \
 			build-essential \
 			libz-dev \
@@ -32,9 +33,12 @@ RUN apt-get update
 #Install Clang dependencies
 RUN apt-get install -y zip clang-$LLVM_VER lldb-$LLVM_VER lld-$LLVM_VER clangd-$LLVM_VER liblld-$LLVM_VER-dev llvm-$LLVM_VER-dev
 
+ENV CARGO_HOME=/usr/local/cargo
+ENV RUSTUP_HOME=/usr/local/rustup
 # Get Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- --profile minimal --default-toolchain none -y
-ENV PATH="/root/.cargo/bin:${PATH}"
+ENV PATH="${CARGO_HOME}/bin:${PATH}"
+
 
 RUN rustup toolchain install nightly  \
 		&& rustup toolchain install $RUST_VERSION \
@@ -46,6 +50,7 @@ RUN rustup toolchain install nightly  \
 		&& rustup target add x86_64-unknown-linux-musl 
 #Install documentation and coverage tools
 RUN cargo install mdbook grcov
+
 
 WORKDIR /build
 ENTRYPOINT ["bash"]
