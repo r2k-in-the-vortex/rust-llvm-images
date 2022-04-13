@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN dpkg --add-architecture arm64 \
 		&& apt-get update \
 		&& apt-get install \
-			app-utils	\
+			apt-utils	\
 			wget gnupg curl \
 			build-essential \
 			libz-dev \
